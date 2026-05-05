@@ -1,0 +1,110 @@
+:root {
+    --bg-color: #eaf0ff;
+    --container-bg: #f4f0ff;
+    --title-color: #312e81;
+    --chat-bg: #ffffff;
+    --chat-border: #c7d2fe;
+    --input-border: #a5b4fc;
+    --bot-bg: #e0e7ff;
+    --bot-text: #1e1b4b;
+    --user-bg: #4f46e5;
+    --user-text: #ffffff;
+    --primary-btn: #4f46e5;
+    --primary-btn-hover: #4338ca;
+    --secondary-btn: #7c3aed;
+    --secondary-btn-hover: #6d28d9;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg-color);
+}
+
+.chat-container {
+    max-width: 700px;
+    margin: 30px auto;
+    background: var(--container-bg);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(79, 70, 229, 0.18);
+    padding: 22px;
+    border: 1px solid #c4b5fd;
+}
+
+h1 {
+    font-size: 22px;
+    margin: 0 0 16px;
+    color: var(--title-color);
+}
+
+.toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.clear-btn {
+    background: var(--secondary-btn);
+}
+
+.clear-btn:hover {
+    background: var(--secondary-btn-hover);
+}
+
+.chat-box {
+    height: 420px;
+    overflow-y: auto;
+    border: 1px solid var(--chat-border);
+    border-radius: 10px;
+    padding: 12px;
+    background: var(--chat-bg);
+}
+
+.message {
+    max-width: 80%;
+    margin: 8px 0;
+    padding: 10px 12px;
+    border-radius: 8px;
+    line-height: 1.4;
+    white-space: pre-line;
+}
+
+.message.bot {
+    background: var(--bot-bg);
+    color: var(--bot-text);
+}
+
+.message.user {
+    margin-left: auto;
+    background: var(--user-bg);
+    color: var(--user-text);
+}
+
+.chat-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+#user-input {
+    flex: 1;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 15px;
+    background: var(--container-bg);
+    color: var(--title-color);
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    background: var(--primary-btn);
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--primary-btn-hover);
+}
