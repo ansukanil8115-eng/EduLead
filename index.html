@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Enquiry Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Educational Enquiry Assistant</h1>
+        <div class="toolbar">
+            <button type="button" id="clear-chat-btn" class="clear-btn">Clear Chat</button>
+        </div>
+        <div id="chat-box" class="chat-box">
+            <div class="message bot">Hello! Ask me about our courses.</div>
+        </div>
+        <form id="chat-form" class="chat-form">
+            <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById("chat-box");
+        const chatForm = document.getElementById("chat-form");
+        const userInput = document.getElementById("user-input");
+        const clearChatBtn = document.getElementById("clear-chat-btn");
+        const defaultGreeting = "Hello! Ask me about our courses.";
+
+        function appendMessage(text, sender) {
+            const div = document.createElement("div");
+            div.className = `message ${sender}`;
+            div.textContent = text;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function renderFreshChat(replyText = defaultGreeting) {
+            chatBox.innerHTML = "";
+            appendMessage(replyText, "bot");
+            userInput.focus();
+        }
+
+        async function resetChat() {
+            try {
+                const response = await fetch("/reset", { method: "POST" });
+                const data = await response.json();
+                renderFreshChat(data.reply || defaultGreeting);
+            } catch (error) {
+                renderFreshChat(defaultGreeting);
+            }
+        }
+
+        chatForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            appendMessage(message, "user");
+            userInput.value = "";
+
+            try {
+                const response = await fetch("/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message }),
+                });
+                const data = await response.json();
+                appendMessage(data.reply || "Sorry, something went wrong.", "bot");
+            } catch (error) {
+                appendMessage("Server error. Please try again.", "bot");
+            }
+        });
+
+        clearChatBtn.addEventListener("click", resetChat);
+        resetChat();
+    </script>
+</body>
+</html>
