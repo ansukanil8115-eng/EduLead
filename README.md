@@ -66,7 +66,7 @@ project/
 
 ## Setup
 
-1. Create and activate virtual environment (recommended):
+1. Create and activate virtual environment :
 
    ```bash
    python -m venv .venv
